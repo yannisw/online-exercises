@@ -2,6 +2,7 @@
 var todoList = {
   todos: [],
   displayTodos: function() {
+    debugger;
     if (this.todos.length === 0) {
       console.log("Your todo list is empty!");
     } else {
@@ -16,6 +17,7 @@ var todoList = {
     }
   },
   addTodo: function(todoText) {
+    
     this.todos.push({
       todoText: todoText,
       completed: false
@@ -31,8 +33,41 @@ var todoList = {
     this.displayTodos();
   },
   toggleCompleted: function(position) {
-    var todo = this.todos[position];
+    let todo = this.todos[position];
     todo.completed = !todo.completed;
     this.displayTodos();
-  }
-};
+  },
+  toggleAll: function() {
+    let totalTodos = this.todos.length;
+    let completedTodos = 0;
+    
+    for(let i = 0; i < totalTodos; i++) {
+      if (this.todos[i].completed) {
+        completedTodos++;
+      }
+    }
+    if (completedTodos === totalTodos) {
+      for (let i = 0; i < totalTodos; i++) {
+        this.todos[i].completed = false;
+      }
+    } else {
+      for (let i = 0; i < totalTodos; i++) {
+        this.todos[i].completed= true;
+      }
+    }
+    
+    
+    this.displayTodos();
+  },
+}  
+
+var displayTodosButton = document.getElementById("displayTodosButton");
+var toggleAllButton = document.getElementById("toggleAllButton");
+console.log(toggleAllButton);
+
+displayTodosButton.addEventListener("click", function() {
+  todoList.displayTodos();
+});
+toggleAllButton.addEventListener("click", function() {
+  todoList.toggleAll();
+} );
